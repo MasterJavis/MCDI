@@ -1,0 +1,194 @@
+% !TEX program = pdflatex
+\documentclass[12pt]{article}
+
+% --------- Paquetes básicos ----------
+\usepackage[spanish,es-noshorthands]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+
+% --------- Formato ----------
+\usepackage[a4paper,margin=2.5cm]{geometry}
+\usepackage{setspace}
+\onehalfspacing
+\usepackage{parskip}
+
+% --------- Matemáticas ----------
+\usepackage{amsmath,amssymb}
+
+% --------- Figuras y tablas ----------
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{siunitx}
+
+% --------- Código ----------
+\usepackage{listings}
+\usepackage{xcolor}
+\lstdefinestyle{juliastyle}{
+  language={[Julia]TeX},
+  basicstyle=\ttfamily\small,
+  keywordstyle=\color{blue},
+  commentstyle=\color{gray},
+  stringstyle=\color{teal},
+  numbers=left,
+  numberstyle=\tiny\color{gray},
+  stepnumber=1,
+  numbersep=8pt,
+  showstringspaces=false,
+  breaklines=true,
+  frame=single,
+  tabsize=2
+}
+\lstdefinelanguage{Julia}{
+  morekeywords={
+    abstract,break,case,catch,const,continue,do,else,elseif,end,export,false,finally,for,function,
+    global,if,import,in,let,local,macro,module,mutable,primitive,quote,return,struct,true,try,using,
+    while,where
+  },
+  sensitive=true,
+  morecomment=[l]\#,
+  morestring=[b]",
+}
+
+\lstdefinestyle{juliastyle}{
+  language=Julia,
+  basicstyle=\ttfamily\small,
+  keywordstyle=\color{blue},
+  commentstyle=\color{gray},
+  stringstyle=\color{teal},
+  numbers=left,
+  numberstyle=\tiny\color{gray},
+  stepnumber=1,
+  numbersep=8pt,
+  showstringspaces=false,
+  breaklines=true,
+  frame=single,
+  tabsize=2
+}
+
+\lstset{style=juliastyle}
+% --------- Hipervínculos ----------
+\usepackage[hidelinks]{hyperref}
+
+% --------- Título ----------
+\title{\textbf{Comparación de Órdenes de Crecimiento y Simulación de Costos}}
+\author{Tu Nombre Aquí}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+% =========================================================
+\section{Introducción}
+% Qué es un orden de crecimiento, por qué importa, qué se hará en el reporte.
+
+
+% =========================================================
+\section{Metodología}
+\subsection{Supuestos}
+% Ej: 1 operación = 1 ns, costos simulados, no benchmarking real.
+
+\subsection{Herramientas y entorno}
+% Ej: Julia, Jupyter/Quarto, Plots, etc.
+Los experimentos se realizaron en Julia (notebook Jupyter/Quarto). Se utilizaron funciones matemáticas y gráficas para comparar visualmente los crecimientos y generar una tabla de tiempos simulados.
+
+% =========================================================
+\section{Figuras y comparación de los órdenes de crecimiento}
+% Aquí van subsecciones por comparación, con figura + texto interpretativo.
+
+\subsection{$O(1)$ vs $O(\log n)$}
+% Inserta figura exportada como PNG/PDF desde Julia
+\begin{figure}[H]
+    \centering
+    \caption{Comparación entre $O(1)$ y $O(\log n)$ en un rango seleccionado de $n$.}
+    \label{fig:o1_olog}
+\end{figure}
+
+% Discusión del rango y comportamiento
+Discusión: justificar el rango usado y explicar por qué $\log n$ crece lentamente.
+
+\subsection{$O(n)$ vs $O(n\log n)$}
+\begin{figure}[H]
+    \centering
+    \caption{Comparación entre $O(n)$ y $O(n\log n)$.}
+    \label{fig:on_onlog}
+\end{figure}
+
+Discusión: diferencias observables y cuándo se vuelven relevantes.
+
+\subsection{$O(n^2)$ vs $O(n^3)$}
+\begin{figure}[H]
+    \centering
+    \caption{Comparación entre $O(n^2)$ y $O(n^3)$.}
+    \label{fig:on2_on3}
+\end{figure}
+
+Discusión: efecto de escala; por qué $n^2$ puede verse “menos curvo” si $n^3$ domina el eje $y$.
+
+\subsection{$O(a^n)$ vs $O(n!)$}
+\begin{figure}[H]
+    \centering
+    \caption{Comparación entre $O(a^n)$ y $O(n!)$ (por ejemplo $a=2$).}
+    \label{fig:oan_onfact}
+\end{figure}
+
+Discusión: crecimiento explosivo; rangos pequeños por límites numéricos y físicos.
+
+\subsection{$O(n!)$ vs $O(n^n)$}
+\begin{figure}[H]
+    \centering
+    \caption{Comparación entre $O(n!)$ y $O(n^n)$.}
+    \label{fig:onfact_onn}
+\end{figure}
+
+Discusión: comparar magnitudes; interpretación física (p.ej. operaciones vs edad del universo).
+
+% =========================================================
+\section{Análisis y simulación de costo en formato de tabla}
+% Aquí debes poner la tabla final con tiempos simulados.
+
+\subsection{Tabla de tiempos simulados}
+Se calcula el número de operaciones para distintos tamaños de entrada $n$ y se convierte a tiempo suponiendo \SI{1}{\nano\second} por operación.
+
+% Opción A: tabla corta (si cabe)
+\begin{table}[H]
+    \centering
+    \caption{Tiempos simulados (1 operación = 1 ns).}
+    \label{tab:sim_costos}
+    \begin{tabular}{@{}llrr@{}}
+        \toprule
+        Orden       & $n$ & Operaciones (aprox.) & Tiempo (aprox.)      \\ \midrule
+        $O(1)$      & 10  & 1                    & \SI{1}{\nano\second} \\
+        $O(\log n)$ & 10  & $\log_2(10)$         & $\log_2(10)$ ns      \\
+        % Agrega filas según tu salida
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+% Opción B: longtable si es grande (descomenta si lo necesitas)
+% \begin{longtable}{@{}llp{5cm}p{5cm}@{}}
+% \caption{Tiempos simulados (1 operación = 1 ns).}\label{tab:sim_costos_long}\\
+% \toprule
+% Orden & $n$ & Operaciones (aprox.) & Tiempo (aprox.) \\ \midrule
+% \endfirsthead
+% \toprule
+% Orden & $n$ & Operaciones (aprox.) & Tiempo (aprox.) \\ \midrule
+% \endhead
+% \bottomrule
+% \endfoot
+% % Filas...
+% \end{longtable}
+
+% =========================================================
+\section{Conclusiones}
+% Debe abordar comparaciones y simulación
+==============================================
+% (Opcional) Referencias
+% \section{Referencias}
+% \begin{thebibliography}{9}
+% \bibitem{cormen} Cormen et al., \textit{Introduction to Algorithms}.
+% \end{thebibliography}
+
+\end{document}
