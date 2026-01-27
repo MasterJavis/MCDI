@@ -74,7 +74,7 @@
 
 % --------- Título ----------
 \title{\textbf{Comparación de Órdenes de Crecimiento y Simulación de Costos}}
-\author{Tu Nombre Aquí}
+\author{Javier Jhairt López Rojas}
 \date{\today}
 
 \begin{document}
@@ -83,12 +83,19 @@
 % =========================================================
 \section{Introducción}
 % Qué es un orden de crecimiento, por qué importa, qué se hará en el reporte.
-
-
+La siguiente solución muestra una explicación exhaustiva de los comportamientos asintoticos de diferentes casos de comportamientos algoritmicos. El objetivo principal es  crear un entendimiento comparativo de diversos escenarios hipoteticos de comportamiento computacional, de tal forma que se pueda implementar en escenarios reales.
 % =========================================================
 \section{Metodología}
 \subsection{Supuestos}
-% Ej: 1 operación = 1 ns, costos simulados, no benchmarking real.
+
+
+
+Los supuesttos realizados para el desarrllo de esta practica son los sigueintes: j
+
+\begin{itemize}
+    \item Entrada de datos limitada: En un mundo real, algunos algortimos con complejidad demasialo elevada una entrada de datos igual de masiva provoca daños en hardware, por lo que se decidió acotar dichos valores.
+    \item Modelo de computo idealizado: Se asume que el hardware funciona de manera ideal, sin interrupciones, errores o fallos.
+\end{itemize}
 
 \subsection{Herramientas y entorno}
 % Ej: Julia, Jupyter/Quarto, Plots, etc.
@@ -103,47 +110,52 @@ Los experimentos se realizaron en Julia (notebook Jupyter/Quarto). Se utilizaron
 \begin{figure}[H]
     \centering
     \caption{Comparación entre $O(1)$ y $O(\log n)$ en un rango seleccionado de $n$.}
+    \includegraphics[width=\textwidth]{images/1-nlogn.png}
     \label{fig:o1_olog}
 \end{figure}
 
 % Discusión del rango y comportamiento
-Discusión: justificar el rango usado y explicar por qué $\log n$ crece lentamente.
+Discusión: El rango usado para esta comparación fue de [0-300]. Podemos notar que a medida que n crece el logaritmo cada ves mas converge a un comportamiento mas estable dado que la función logartimo tiene la propiedad de llevar numeros muy grandes a cantidades mas suaves.
 
 \subsection{$O(n)$ vs $O(n\log n)$}
 \begin{figure}[H]
     \centering
     \caption{Comparación entre $O(n)$ y $O(n\log n)$.}
+    \includegraphics[width=\textwidth]{images/n-nlogn.png}
     \label{fig:on_onlog}
 \end{figure}
 
-Discusión: diferencias observables y cuándo se vuelven relevantes.
+Discusión: el rango usado fue de [0-300]. Se peude apreciar que a medida que n crece, el comportamiento asintótico de $n \log n$ es mucho mas inmenso que un comportamiento lineal, ésto porque a diferencia de la funcion $\log$, tiene un factor n que lo potencia a tener un mayor creciemiento.
 
 \subsection{$O(n^2)$ vs $O(n^3)$}
 \begin{figure}[H]
     \centering
     \caption{Comparación entre $O(n^2)$ y $O(n^3)$.}
+    \includegraphics[width=\textwidth]{images/n2-n3.png}
     \label{fig:on2_on3}
 \end{figure}
 
-Discusión: efecto de escala; por qué $n^2$ puede verse “menos curvo” si $n^3$ domina el eje $y$.
+Discusión: Es interesante opbswervar que la función $n^2$ puede verse “menos curvo” si $n^3$ domina el eje $y$, ésto debido a que $n^3$ crece mucho mas rapido que $n^2$.
 
 \subsection{$O(a^n)$ vs $O(n!)$}
 \begin{figure}[H]
     \centering
     \caption{Comparación entre $O(a^n)$ y $O(n!)$ (por ejemplo $a=2$).}
+    \includegraphics[width=\textwidth]{images/an-n!.png}
     \label{fig:oan_onfact}
 \end{figure}
 
-Discusión: crecimiento explosivo; rangos pequeños por límites numéricos y físicos.
+Discusión: Debido a que ambos crecen de manera muy abrupta, se decidio usar un rango de [0-20] para poder apreciar el comportamiento de ambas funciones.
 
 \subsection{$O(n!)$ vs $O(n^n)$}
 \begin{figure}[H]
     \centering
     \caption{Comparación entre $O(n!)$ y $O(n^n)$.}
+    \includegraphics[width=\textwidth]{images/n!-nn.png}
     \label{fig:onfact_onn}
 \end{figure}
 
-Discusión: comparar magnitudes; interpretación física (p.ej. operaciones vs edad del universo).
+Discusión: La funcion $n^n$ crece demasiado rapido incluso con valores pequeños.
 
 % =========================================================
 \section{Análisis y simulación de costo en formato de tabla}
@@ -153,42 +165,53 @@ Discusión: comparar magnitudes; interpretación física (p.ej. operaciones vs e
 Se calcula el número de operaciones para distintos tamaños de entrada $n$ y se convierte a tiempo suponiendo \SI{1}{\nano\second} por operación.
 
 % Opción A: tabla corta (si cabe)
-\begin{table}[H]
-    \centering
-    \caption{Tiempos simulados (1 operación = 1 ns).}
-    \label{tab:sim_costos}
-    \begin{tabular}{@{}llrr@{}}
-        \toprule
-        Orden       & $n$ & Operaciones (aprox.) & Tiempo (aprox.)      \\ \midrule
-        $O(1)$      & 10  & 1                    & \SI{1}{\nano\second} \\
-        $O(\log n)$ & 10  & $\log_2(10)$         & $\log_2(10)$ ns      \\
-        % Agrega filas según tu salida
-        \bottomrule
-    \end{tabular}
-\end{table}
-
-% Opción B: longtable si es grande (descomenta si lo necesitas)
-% \begin{longtable}{@{}llp{5cm}p{5cm}@{}}
-% \caption{Tiempos simulados (1 operación = 1 ns).}\label{tab:sim_costos_long}\\
-% \toprule
-% Orden & $n$ & Operaciones (aprox.) & Tiempo (aprox.) \\ \midrule
-% \endfirsthead
-% \toprule
-% Orden & $n$ & Operaciones (aprox.) & Tiempo (aprox.) \\ \midrule
-% \endhead
-% \bottomrule
-% \endfoot
-% % Filas...
-% \end{longtable}
+\begin{longtable}{@{}llS[table-format=3.2e2]l@{}}
+    \caption{Simulación de costos computacionales (1 operación = 1 ns).}\label{tab:sim_costos} \\
+    \toprule
+    Orden          & $n$   & {Operaciones (aprox.)} & Tiempo (aprox.)                          \\ \midrule
+    \endfirsthead
+    \toprule
+    Orden          & $n$   & {Operaciones (aprox.)} & Tiempo (aprox.)                          \\ \midrule
+    \endhead
+    \bottomrule
+    \endfoot
+    $O(1)$         & 10    & 1                      & \SI{1}{\nano\second}                     \\
+                   & 100   & 1                      & \SI{1}{\nano\second}                     \\
+                   & 1000  & 1                      & \SI{1}{\nano\second}                     \\
+                   & 10000 & 1                      & \SI{1}{\nano\second}                     \\ \midrule
+    $O(\log n)$    & 10    & 3.32                   & \SI{3.32}{\nano\second}                  \\
+                   & 100   & 6.64                   & \SI{6.64}{\nano\second}                  \\
+                   & 1000  & 9.97                   & \SI{9.97}{\nano\second}                  \\
+                   & 10000 & 13.29                  & \SI{13.29}{\nano\second}                 \\ \midrule
+    $O(\sqrt{n})$  & 10    & 3.16                   & \SI{3.16}{\nano\second}                  \\
+                   & 100   & 10.0                   & \SI{10.0}{\nano\second}                  \\
+                   & 1000  & 31.62                  & \SI{31.62}{\nano\second}                 \\
+                   & 10000 & 100.0                  & \SI{100.0}{\nano\second}                 \\ \midrule
+    $O(n^2)$       & 10    & 100                    & \SI{100}{\nano\second}                   \\
+                   & 100   & 10000                  & \SI{10}{\micro\second}                   \\
+                   & 1000  & 1000000                & \SI{1}{\milli\second}                    \\
+                   & 10000 & 1.00e8                 & \SI{0.1}{\second}                        \\ \midrule
+    $O(2^n)$       & 10    & 1024                   & \SI{1.02}{\micro\second}                 \\
+                   & 20    & 1.05e6                 & \SI{1.05}{\milli\second}                 \\
+                   & 30    & 1.07e9                 & \SI{1.07}{\second}                       \\
+                   & 50    & 1.13e15                & $\approx$ \SI{13.03}{días}               \\ \midrule
+    $O(n!)$        & 5     & 120                    & \SI{120}{\nano\second}                   \\
+                   & 10    & 3.63e6                 & \SI{3.63}{\milli\second}                 \\
+                   & 20    & 2.43e18                & $\approx$ \SI{77.15}{años}               \\
+                   & 50    & {\text{MUY GRANDE}}    & {\text{MUY GRANDE}}                      \\ \midrule
+    $O(n^n)$       & 5     & 3125                   & \SI{3.13}{\micro\second}                 \\
+                   & 10    & 1.00e10                & \SI{10}{\second}                         \\
+                   & 20    & 1.05e26                & $\approx$ \SI{3.33e9}{años}              \\
+                   & 50    & {\text{MUY GRANDE}}    & {\text{MUY GRANDE}}                      \\ \midrule
+    $O(n^{(n^n)})$ & 2     & 16                     & \SI{16}{\nano\second}                    \\
+                   & 3     & 7.63e12                & $\approx$ \SI{2.12}{h}                   \\
+                   & 4     & {\text{MUY GRANDE}}    & {\text{MUY GRANDE}}                      \\
+                   & 5     & {\text{MUY GRANDE}}    & {\text{MUY GRANDE}}                      \\
+\end{longtable}
 
 % =========================================================
 \section{Conclusiones}
-% Debe abordar comparaciones y simulación
-==============================================
-% (Opcional) Referencias
-% \section{Referencias}
-% \begin{thebibliography}{9}
-% \bibitem{cormen} Cormen et al., \textit{Introduction to Algorithms}.
-% \end{thebibliography}
+
+Dados los resultados de las pruebas desarrolladas en esta practica, podemos observar distintos escenarios que nos peuden ayudar a detectar cuando un algoritmo es mas eficiente que otro con condiciones dadas, de esta forma podemos concluir que un factor importante para observar cambios en elk comportamiento de un algoritmo es la entrada de datos, ya que en anlgunos intervalos finos se peuden observar comportamientos muy diferentes con respecto a su mismo comportamiento con numeros mas largos.
 
 \end{document}
