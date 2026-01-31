@@ -1,0 +1,212 @@
+\documentclass[12pt, letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish, es-tabla]{babel}
+\usepackage{amsmath, amssymb, amsfonts}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+
+% Configuración de márgenes
+\geometry{
+    left=2.5cm,
+    right=2.5cm,
+    top=2.5cm,
+    bottom=2.5cm
+}
+
+% Configuración de encabezado y pie de página
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{Tarea 1}
+\lhead{Matemáticas para la Ciencia de Datos}
+\rfoot{Página \thepage}
+
+% Datos del Alumno (¡LLENA ESTO!)
+\newcommand{\nombreAlumno}{[Tu Nombre Completo Aquí]}
+\newcommand{\fecha}{[Fecha de Entrega]}
+
+\begin{document}
+
+% --- PORTADA SIMPLIFICADA O ENCABEZADO ---
+\begin{center}
+    \Large \textbf{Matemáticas para la Ciencia de Datos} \\
+    \large Docente: Briceyda B. Delgado \\
+    \vspace{0.5cm}
+    \LARGE \textbf{Tarea 1} \\
+    \vspace{0.5cm}
+    \large \nombreAlumno \\
+    \small \fecha
+\end{center}
+
+\vspace{0.5cm}
+\hrule
+\vspace{1cm}
+
+% --- INICIO DE EJERCICIOS ---
+
+\section*{Ejercicio 1 (15 puntos)}
+\textit{Un inversionista le afirma a su corredor de bolsa que todas sus acciones pertenecen a tres compañías: Aeroméxico, Volaris y Vivaaerobus... Demuestre que el corredor no cuenta con la información suficiente... pero que si ella dice tener 280 acciones de Vivaaerobus, el corredor pueda calcular el número de acciones que posee en Aeroméxico y en Volaris.}
+
+\subsection*{Solución:}
+Sean las variables:
+\begin{itemize}
+    \item $x$: Número de acciones de Aeroméxico.
+    \item $y$: Número de acciones de Volaris.
+    \item $z$: Número de acciones de Vivaaerobus.
+\end{itemize}
+
+Planteamiento del sistema de ecuaciones lineal basado en los cambios de precios:
+\begin{align*}
+    % Escribe aquí tu sistema de ecuaciones. Ejemplo:
+    % -1x - 1.5y + 0.5z &= -350 \\
+    % 1.5x - 0.5y + 1z &= 600
+\end{align*}
+
+\textbf{Procedimiento:}
+% Escribe aquí tu desarrollo paso a paso (Gauss-Jordan, sustitución, etc.)
+
+\vspace{0.5cm}
+\textbf{Conclusión:}
+% Escribe aquí tu conclusión sobre si el sistema tiene solución única o infinitas soluciones.
+
+
+\newpage
+\section*{Ejercicio 2 (15 puntos)}
+\textit{Considere el diagrama de una malla de calles... Establezca un sistema de ecuaciones... y resuelva.}
+
+\subsection*{Planteamiento del Sistema:}
+Basado en el principio de conservación de flujo (Entrada = Salida) en cada nodo:
+
+\begin{align*}
+    \text{Nodo [1]: } & x_1 + x_5 + 100 = x_3 + 300 \\
+    \text{Nodo [2]: } & \dots                       \\
+    \text{Nodo [3]: } & \dots                       \\
+    \text{Nodo [4]: } & \dots
+\end{align*}
+
+\subsection*{Solución del Sistema:}
+% Escribe aquí tu resolución paso a paso.
+
+\subsection*{Análisis de cierre de calles:}
+\textbf{¿Puede cerrarse la calle de [1] a [3] ($x_3=0$)?}
+% Tu respuesta y justificación matemática aquí.
+
+\textbf{¿Puede cerrarse la calle de [1] a [4] ($x_5=0$)?}
+% Tu respuesta y justificación matemática aquí.
+
+\textbf{Mínimo flujo para la calle [1] a [4]:}
+% Tu cálculo aquí.
+
+
+\newpage
+\section*{Ejercicio 3 (20 puntos)}
+\textit{Utilice la inversa de matrices para codificar un mensaje asignado en clase... Se utilizarán arreglos de tamaño 3 y la siguiente matriz $A$:}
+\[
+    A = \begin{pmatrix} 2 & 4 & 3 \\ 0 & 1 & -1 \\ 3 & 5 & 7 \end{pmatrix}
+\]
+
+\subsection*{Proceso de Encriptado:}
+Mensaje original: [INSERTA TU MENSAJE ASIGNADO AQUÍ]
+
+Conversión numérica (según tabla):
+% Muestra cómo pasas las letras a números.
+
+Multiplicación por la matriz $A$:
+\[
+    \begin{pmatrix} 2 & 4 & 3 \\ 0 & 1 & -1 \\ 3 & 5 & 7 \end{pmatrix}
+    \begin{pmatrix} \dots \\ \dots \\ \dots \end{pmatrix} =
+    \begin{pmatrix} \dots \\ \dots \\ \dots \end{pmatrix}
+\]
+
+\subsection*{Proceso de Desencriptado:}
+Cálculo de la matriz inversa $A^{-1}$:
+% Muestra el cálculo de la inversa (adjunta, determinantes, o Gauss).
+\[
+    A^{-1} = \dots
+\]
+
+Recuperación del mensaje:
+% Muestra la multiplicación de A inversa por el vector encriptado.
+
+
+\newpage
+\section*{Ejercicio 4 (20 puntos)}
+\textit{En una región la población se mantiene constante... 8 millones en zona rural y 2 en urbana.}
+
+\subsection*{(a) Matriz Estocástica}
+Justificación de la matriz $A = \begin{pmatrix} 0.75 & 0.05 \\ 0.25 & 0.95 \end{pmatrix}$:
+% Explica por qué las columnas suman 1 y qué significa cada entrada.
+
+\subsection*{(b) Polinomio Mínimo y Valores Propios}
+Cálculo del polinomio característico $|A - \lambda I| = 0$:
+% Tu desarrollo aquí.
+
+Valores propios obtenidos:
+\[ \lambda_1 = \dots, \quad \lambda_2 = \dots \]
+
+\subsection*{(c) Diagonalización (Matriz P)}
+Cálculo de los vectores propios para formar $P$:
+\[
+    P = \begin{pmatrix} \dots & \dots \\ \dots & \dots \end{pmatrix}, \quad
+    P^{-1} A P = \begin{pmatrix} \lambda_1 & 0 \\ 0 & \lambda_2 \end{pmatrix}
+\]
+
+\subsection*{(d) Población en 100 años}
+Cálculo de $A^{100}$ o del estado estacionario:
+% Tu desarrollo analítico aquí.
+
+
+\newpage
+\section*{Ejercicio 5 (20 puntos)}
+\textit{Considere la matriz:}
+\[
+    A = \begin{pmatrix} 4 & 11 & 14 \\ 8 & 7 & -2 \end{pmatrix}
+\]
+
+\subsection*{(a) Matriz $A^T A$}
+\[
+    A^T A = \begin{pmatrix} 4 & 8 \\ 11 & 7 \\ 14 & -2 \end{pmatrix} \begin{pmatrix} 4 & 11 & 14 \\ 8 & 7 & -2 \end{pmatrix} = \dots
+\]
+
+\subsection*{(b) Valores Propios de $A^T A$}
+% Cálculo de eigenvalores y ordenamiento creciente.
+
+\subsection*{(c) Valores Singulares de A}
+\[ \sigma_i = \sqrt{\lambda_i} \]
+% Tus resultados.
+
+\subsection*{(d) Base Ortonormal (Vectores $V$)}
+% Cálculo de vectores propios normalizados.
+
+\subsection*{(e) Matrices $U, \Sigma, V^T$}
+% Construcción de las matrices de la SVD.
+
+\subsection*{(f) Verificación $A = U \Sigma V^T$}
+% Multiplicación de comprobación.
+
+
+\newpage
+\section*{Ejercicio 6 (10 puntos)}
+\textit{Investigue alguna aplicación práctica de la descomposición en valores singulares (SVD).}
+
+\subsection*{Aplicación: [Nombre de la Aplicación, ej. Compresión de Imágenes]}
+% Tu explicación detallada aquí (sin código).
+% Ejemplo: La SVD se utiliza para reducir la dimensionalidad de...
+
+\vspace{1cm}
+
+% --- BIBLIOGRAFÍA ---
+\begin{thebibliography}{9}
+    \bibitem{notas}
+    Delgado, B. (2025). \textit{Notas de clase: Matemáticas para la Ciencia de Datos}. FES Acatlán, UNAM.
+
+    \bibitem{libro}
+    Lay, D. C. (2012). \textit{Álgebra lineal y sus aplicaciones}. Pearson Educación.
+
+    \bibitem{paper}
+    % Agrega aquí la referencia de tu investigación del ejercicio 6.
+\end{thebibliography}
+
+\end{document}
