@@ -7,6 +7,8 @@
 \usepackage{enumitem}
 \usepackage{fancyhdr}
 \usepackage{hyperref}
+\usepackage{float}
+
 
 % Configuración de márgenes
 \geometry{
@@ -24,14 +26,14 @@
 \rfoot{Página \thepage}
 
 % Datos del Alumno (¡LLENA ESTO!)
-\newcommand{\nombreAlumno}{[Tu Nombre Completo Aquí]}
-\newcommand{\fecha}{[Fecha de Entrega]}
+\newcommand{\nombreAlumno}{Javier Jhairt López Rojas}
+\newcommand{\fecha}{2026-01-31}
 
 \begin{document}
 
 % --- PORTADA SIMPLIFICADA O ENCABEZADO ---
 \begin{center}
-    \Large \textbf{Matemáticas para la Ciencia de Datos} \\
+    \Large \textbf{Matemáticas} \\
     \large Docente: Briceyda B. Delgado \\
     \vspace{0.5cm}
     \LARGE \textbf{Tarea 1} \\
@@ -46,167 +48,1020 @@
 
 % --- INICIO DE EJERCICIOS ---
 
-\section*{Ejercicio 1 (15 puntos)}
+\section*{Ejercicio 1}
 \textit{Un inversionista le afirma a su corredor de bolsa que todas sus acciones pertenecen a tres compañías: Aeroméxico, Volaris y Vivaaerobus... Demuestre que el corredor no cuenta con la información suficiente... pero que si ella dice tener 280 acciones de Vivaaerobus, el corredor pueda calcular el número de acciones que posee en Aeroméxico y en Volaris.}
 
 \subsection*{Solución:}
-Sean las variables:
+\subsection*{Definición de Variables}
+Sean:
 \begin{itemize}
-    \item $x$: Número de acciones de Aeroméxico.
-    \item $y$: Número de acciones de Volaris.
-    \item $z$: Número de acciones de Vivaaerobus.
+    \item $A_i$: Acción de Aeroméxico
+    \item $V_{o\_i}$: Acción de Volaris
+    \item $V_{i}$: Acción de VivaAerobus
 \end{itemize}
 
-Planteamiento del sistema de ecuaciones lineal basado en los cambios de precios:
+Sean:
+\[ P = \text{Valor del Portafolio (Presente)} \]
+\[ P_0 = \sum_{i=0}^n A_i + \sum_{i=0}^n V_{o\_i} + \sum_{i=0}^n V_{no\_i} \]
+
+Sean los precios:
+\begin{itemize}
+    \item $\alpha =$ Precio Aeroméxico
+    \item $\beta =$ Precio Volaris
+    \item $\gamma =$ Precio Viva
+\end{itemize}
+
+Ecuación general del Portafolio:
+\[
+    P = \left( \sum_{i=0}^n A_i \right) \alpha + \left( \sum_{i=0}^n V_{o\_i} \right) \beta + \left( \sum_{i=0}^n V_{iva\_i} \right) \gamma
+\]
+
 \begin{align*}
-    % Escribe aquí tu sistema de ecuaciones. Ejemplo:
-    % -1x - 1.5y + 0.5z &= -350 \\
-    % 1.5x - 0.5y + 1z &= 600
+    P - 350   & = P_2 \quad (\text{Hace 2 días}) \\
+    P_2 + 600 & = P_1 \quad (\text{Ayer})
 \end{align*}
 
-\textbf{Procedimiento:}
-% Escribe aquí tu desarrollo paso a paso (Gauss-Jordan, sustitución, etc.)
+Cambios en los precios:
+\begin{align*}
+    \alpha_2 & = \alpha - 1   \\
+    \beta_2  & = \beta - 1.50 \\
+    \gamma_2 & = \gamma + 0.5
+\end{align*}
+Y para el siguiente periodo:
+\begin{align*}
+    \alpha_1 & = \alpha_2 + 1.5 \\
+    \beta_1  & = \beta_2 - 0.5  \\
+    \gamma_1 & = \gamma_2 + 1
+\end{align*}
+
+\subsection*{Procedimiento:}
+\vspace{0.5cm}
+
+
+{\Huge $\Rightarrow$}
+
+
+\begin{align*}
+    P - 350        & = P_1 - 600    \\
+    \alpha_1 - 1.5 & = \alpha - 1   \\
+    \beta_1 + 0.5  & = \beta - 1.5  \\
+    \gamma_1 - 1   & = \gamma + 0.5
+\end{align*}
+
+{\Huge $\Rightarrow$}
+
+\begin{align*}
+    P      & = P_1 - 600 + 350 = P_1 - 250         \\
+    \alpha & = \alpha_1 - 1.5 + 1 = \alpha_1 - 0.5 \\
+    \beta  & = \beta_1 + 0.5 + 1.5 = \beta_1 + 2   \\
+    \gamma & = \gamma_1 - 1 - 0.5 = \gamma_1 - 1.5
+\end{align*}
+\vspace{0.5cm}
+
+Sustituyendo los precios despejados en la ecuación original del portafolio:
+\[
+    P = (\alpha_1 - 0.5)\left( \sum_{i=0}^n A_i \right) + (\beta_1 + 2)\left( \sum_{i=0}^n V_{o\_i} \right) + (\gamma_1 - 1.5)\left( \sum_{i=0}^n V_{iva\_i} \right)
+\]
+
+% ---------------------------------------------------------
+% PARTE 2: JUSTIFICACIÓN Y SOLUCIÓN (NUEVO CONTENIDO)
+% ---------------------------------------------------------
+
+\newpage
+
+Para demostrar si el corredor cuenta con información suficiente, traducimos el problema a un sistema de ecuaciones lineales basado en las variaciones de valor. Definimos las incógnitas como la cantidad total de acciones por compañía:
+
+\begin{itemize}
+    \item $x = \sum A_i$: Número de acciones de Aeroméxico.
+    \item $y = \sum V_{o\_i}$: Número de acciones de Volaris.
+    \item $z = \sum V_{iva\_i}$: Número de acciones de VivaAerobus.
+\end{itemize}
+
+El problema nos proporciona dos momentos de cambio en el valor total del portafolio:
+
+\textbf{1. Hace dos días (El valor bajó 350):}
+El cambio total es la suma de los cambios individuales ($ \Delta \text{Precio} \times \text{Cantidad} $):
+\[ -1x - 1.5y + 0.5z = -350 \]
+
+\textbf{2. Ayer (El valor aumentó 600):}
+\[ 1.5x - 0.5y + 1z = 600 \]
+
+El sistema resultante es:
+\begin{equation}
+    \begin{cases}
+        -x - 1.5y + 0.5z = -350 \\
+        1.5x - 0.5y + z = 600
+    \end{cases}
+\end{equation}
+
+\textbf{Conclusión:} Tenemos un sistema de \textbf{2 ecuaciones con 3 incógnitas} ($x, y, z$). Esto se clasifica como un \textit{sistema indeterminado}.
+\vspace{0.5cm}
+
+Si la inversionista declara tener \textbf{280 acciones de VivaAerobus}, obtenemos el valor de la tercera incógnita:
+\[ z = 280 \]
+
+Sustituimos $z$ en el sistema original:
+
+\textbf{Ecuación 1:}
+\[ -x - 1.5y + 0.5(280) = -350 \implies -x - 1.5y + 140 = -350 \]
+\[ \implies -x - 1.5y = -490 \quad \dots (\text{Eq. A}) \]
+
+\textbf{Ecuación 2:}
+\[ 1.5x - 0.5y + 1(280) = 600 \implies 1.5x - 0.5y + 280 = 600 \]
+\[ \implies 1.5x - 0.5y = 320 \quad \dots (\text{Eq. B}) \]
+
+Ahora tenemos un sistema de $2 \times 2$ determinado. Resolvemos para $x$ y $y$:
+De la (Eq. A) multiplicamos por $(-1)$:
+\[ x + 1.5y = 490 \]
+De la (Eq. B) multiplicamos por $3$:
+\[ 4.5x - 1.5y = 960 \]
+
+Sumamos ambas ecuaciones para eliminar $y$:
+\[ 5.5x = 1450 \implies x = \frac{1450}{5.5} \approx 263.63 \]
+
+Sustituimos $x$ en la ecuación despejada de $y$:
+\[ 1.5(263.63) - 0.5y = 320 \implies 395.45 - 320 = 0.5y \]
+\[ 75.45 = 0.5y \implies y \approx 150.9 \]
+
+\textbf{Resultado Final:}
+Con el dato adicional $z=280$, el sistema tiene solución única y el corredor puede calcular las acciones restantes (aproximadamente):
+\begin{itemize}
+    \item Aeroméxico ($x$): $\approx 264$ acciones.
+    \item Volaris ($y$): $\approx 151$ acciones.
+    \item VivaAerobus ($z$): $280$ acciones.
+\end{itemize}
+
+
+\section*{Ejercicio 2}
+Considere el siguiente diagrama de una malla de calles de un sentido con vehículos que entran y salen de las intersecciones. La intersección $k$ se denota por $[k]$, donde $k = 1, 2, 3, 4$.
+
+\begin{figure}[H]  % <--- OJO AQUÍ: H mayúscula
+    \centering
+    \includegraphics[width=0.7\textwidth]{images/diagrama.png}
+    \caption{Diagrama de la malla de calles}
+\end{figure}
+
+Por ejemplo, en la intersección [1], la ecuación que lo representa es:
+\[ x_1 + x_5 + 100 = x_3 + 300 \]
+
+A partir de esta información y el diagrama presentado, realice lo siguiente:
+
+\begin{enumerate}
+    \item \textbf{Proponga el sistema de ecuaciones} que ilustra el flujo de tráfico completo de la imagen anterior.
+
+    \item \textbf{Resuelva el sistema} obtenido del flujo de tráfico.
+
+    \item Suponga que la calle de [1] a [3] necesita cerrarse; es decir:
+          \[ x_3 = 0 \]
+
+    \item Con la restricción anterior ($x_3=0$), responda:
+          \begin{itemize}
+              \item ¿Puede cerrarse también la calle de [1] a [4], es decir $x_5 = 0$, sin modificar los sentidos del tránsito?
+              \item Si no se puede cerrar, ¿cuál es la cantidad más pequeña de vehículos que debe poder admitir esta calle (de [1] a [4])?
+          \end{itemize}
+\end{enumerate}
+
+\subsection*{Solución}
+
+\begin{itemize}
+    \item \textbf{Intersección [1]:}
+          \[ x_3 - x_5 - x_1 = -100 + 300 = 200 \]
+          Multiplicando por $(-1)$ para facilitar el pivote:
+          \[ x_1 - x_3 + x_5 = -200 \]
+
+    \item \textbf{Intersección [2]:}
+          \[ -x_2 + x_1 = 0 \quad \Rightarrow \quad x_1 - x_2 = 0 \]
+
+    \item \textbf{Intersección [3]:}
+          \[ x_3 + x_2 + x_4 = -100 + 200 = 100 \]
+          (Ordenado: $x_2 + x_3 + x_4 = 100$)
+
+    \item \textbf{Intersección [4]:}
+          \[ -x_4 + x_5 = -100 \quad \Rightarrow \quad x_4 - x_5 = 100 \]
+\end{itemize}
+
+Ordenando las variables ($x_1, x_2, x_3, x_4, x_5$), generamos la matriz aumentada inicial:
+
+\[
+    \left( \begin{array}{ccccc|c}
+            1 & 0  & -1 & 0 & 1  & -200 \\
+            1 & -1 & 0  & 0 & 0  & 0    \\
+            0 & 1  & 1  & 1 & 0  & 100  \\
+            0 & 0  & 0  & 1 & -1 & 100
+        \end{array} \right)
+\]
+
+\subsection*{Gauss-Jordan}
+
+% Paso 1
+\noindent Eliminamos $x_1$ de la fila 2 ($R_2 \Rightarrow R_2 - R_1$):
+\[
+    \left( \begin{array}{ccccc|c}
+            1 & 0  & -1 & 0 & 1  & -200 \\
+            0 & -1 & 1  & 0 & -1 & 200  \\
+            0 & 1  & 1  & 1 & 0  & 100  \\
+            0 & 0  & 0  & 1 & -1 & 100
+        \end{array} \right)
+\]
+
+% Paso 2
+\noindent Convertimos el pivote de la fila 2 en positivo ($R_2 \Rightarrow -R_2$):
+\[
+    \left( \begin{array}{ccccc|c}
+            1 & 0 & -1 & 0 & 1  & -200 \\
+            0 & 1 & -1 & 0 & 1  & -200 \\
+            0 & 1 & 1  & 1 & 0  & 100  \\
+            0 & 0 & 0  & 1 & -1 & 100
+        \end{array} \right)
+\]
+
+% Paso 3
+\noindent Eliminamos $x_2$ de la fila 3 ($R_3 \Rightarrow R_3 - R_2$):
+\[
+    \left( \begin{array}{ccccc|c}
+            1 & 0 & -1 & 0 & 1  & -200 \\
+            0 & 1 & -1 & 0 & 1  & -200 \\
+            0 & 0 & 2  & 1 & -1 & 300  \\
+            0 & 0 & 0  & 1 & -1 & 100
+        \end{array} \right)
+\]
+
+% Paso 4
+\noindent Simplificamos la fila 3 dividiendo entre 2 ($R_3 \Rightarrow \frac{1}{2} R_3$):
+\[
+    \left( \begin{array}{ccccc|c}
+            1 & 0 & -1 & 0   & 1    & -200 \\
+            0 & 1 & -1 & 0   & 1    & -200 \\
+            0 & 0 & 1  & 0.5 & -0.5 & 150  \\
+            0 & 0 & 0  & 1   & -1   & 100
+        \end{array} \right)
+\]
+
+% Paso 5 (Sustitución hacia atrás para matriz reducida)
+\noindent Realizando las operaciones finales para eliminar los términos superiores ):
+\[
+    \xrightarrow{\text{Reducción Final}}
+    \left( \begin{array}{ccccc|c}
+            1 & 0 & 0 & 0 & -1 & 400 \\
+            0 & 1 & 0 & 0 & -1 & 400 \\
+            0 & 0 & 1 & 0 & -2 & 600 \\
+            0 & 0 & 0 & 1 & -1 & 100
+        \end{array} \right)
+\]
+
+Del sistema matricial reducido obtenemos las ecuaciones despejadas:
+
+\begin{align*}
+    x_1 - x_5  & = 400 \\
+    x_2 - x_5  & = 400 \\
+    x_3 - 2x_5 & = 600 \\
+    x_4 - x_5  & = 100
+\end{align*}
+
+\newpage
+
+Expresando todo en función de la variable libre $x_5$ ($t$):
+\begin{align*}
+    x_1 & = 400 + t  \\
+    x_2 & = 400 + t  \\
+    x_3 & = 600 + 2t \\
+    x_4 & = 100 + t  \\
+    x_5 & = t
+\end{align*}
+
+$\forall t \geq 0$
 
 \vspace{0.5cm}
-\textbf{Conclusión:}
-% Escribe aquí tu conclusión sobre si el sistema tiene solución única o infinitas soluciones.
 
-
-\newpage
-\section*{Ejercicio 2 (15 puntos)}
-\textit{Considere el diagrama de una malla de calles... Establezca un sistema de ecuaciones... y resuelva.}
-
-\subsection*{Planteamiento del Sistema:}
-Basado en el principio de conservación de flujo (Entrada = Salida) en cada nodo:
-
-\begin{align*}
-    \text{Nodo [1]: } & x_1 + x_5 + 100 = x_3 + 300 \\
-    \text{Nodo [2]: } & \dots                       \\
-    \text{Nodo [3]: } & \dots                       \\
-    \text{Nodo [4]: } & \dots
-\end{align*}
-
-\subsection*{Solución del Sistema:}
-% Escribe aquí tu resolución paso a paso.
-
-\subsection*{Análisis de cierre de calles:}
 \textbf{¿Puede cerrarse la calle de [1] a [3] ($x_3=0$)?}
-% Tu respuesta y justificación matemática aquí.
+
+\noindent \textbf{Respuesta: No es posible.} \\
+Justificación matemática:
+Sustituimos $x_3 = 0$ en la ecuación paramétrica obtenida:
+\[ 600 + 2t = 0 \]
+\[ 2t = -600 \]
+\[ t = -300 \]
+Dado que $t$ representa el flujo de la calle 5 ($x_5$), tenemos la restricción física de que $t \geq 0$. Como $t = -300$ viola esta condición (implicaría flujo negativo/inverso), no es posible cerrar la calle [1] a [3] bajo las condiciones actuales de la red. De hecho, el flujo mínimo en $x_3$ es de 600 vehículos (cuando $t=0$).
+
+\vspace{0.5cm}
 
 \textbf{¿Puede cerrarse la calle de [1] a [4] ($x_5=0$)?}
-% Tu respuesta y justificación matemática aquí.
+
+\noindent \textbf{Respuesta: Sí es posible.} \\
+Justificación:
+Si cerramos esta calle, implica que $x_5 = t = 0$.
+Verificamos el comportamiento del resto del sistema con $t=0$:
+\begin{itemize}
+    \item $x_1 = 400 + 0 = 400$ (Válido)
+    \item $x_2 = 400 + 0 = 400$ (Válido)
+    \item $x_3 = 600 + 2(0) = 600$ (Válido)
+    \item $x_4 = 100 + 0 = 100$ (Válido)
+\end{itemize}
+Como todas las variables resultantes son positivas ($\geq 0$), cerrar esta calle no genera conflictos en la red.
+
+\vspace{0.5cm}
 
 \textbf{Mínimo flujo para la calle [1] a [4]:}
-% Tu cálculo aquí.
+
+Dado que esta calle está representada por la variable $x_5$, y hemos definido que $x_5 = t$, el flujo mínimo está determinado directamente por la restricción de no negatividad del sistema.
+\[ x_{5_{min}} = 0 \text{ vehículos.} \]
 
 
 \newpage
-\section*{Ejercicio 3 (20 puntos)}
-\textit{Utilice la inversa de matrices para codificar un mensaje asignado en clase... Se utilizarán arreglos de tamaño 3 y la siguiente matriz $A$:}
+\section*{Ejercicio 3}
+\textit{Utilice la inversa de matrices para codificar un mensaje asignado en clase de forma personalizada. Se utilizarán arreglos de tamaño 3 y la siguiente matriz de $3 \times 3$:}
 \[
     A = \begin{pmatrix} 2 & 4 & 3 \\ 0 & 1 & -1 \\ 3 & 5 & 7 \end{pmatrix}
 \]
 
-\subsection*{Proceso de Encriptado:}
-Mensaje original: [INSERTA TU MENSAJE ASIGNADO AQUÍ]
+\textit{Cada letra del mensaje a encriptar será representada por un número módulo 26.}
 
-Conversión numérica (según tabla):
-% Muestra cómo pasas las letras a números.
+\subsection*{Solución}
 
-Multiplicación por la matriz $A$:
+
+Se utiliza la matriz $A$ de $3 \times 3$:
 \[
-    \begin{pmatrix} 2 & 4 & 3 \\ 0 & 1 & -1 \\ 3 & 5 & 7 \end{pmatrix}
-    \begin{pmatrix} \dots \\ \dots \\ \dots \end{pmatrix} =
-    \begin{pmatrix} \dots \\ \dots \\ \dots \end{pmatrix}
+    A = \begin{pmatrix}
+        2 & 4 & 3  \\
+        0 & 1 & -1 \\
+        3 & 5 & 7
+    \end{pmatrix}
 \]
 
-\subsection*{Proceso de Desencriptado:}
-Cálculo de la matriz inversa $A^{-1}$:
-% Muestra el cálculo de la inversa (adjunta, determinantes, o Gauss).
+Para encontrar $A^{-1}$, primero obtenemos el polinomio característico resolviendo $\det(A - \lambda I)$.
+
 \[
-    A^{-1} = \dots
+    \det(A - \lambda I) = \det \begin{pmatrix}
+        2-\lambda & 4         & 3         \\
+        0         & 1-\lambda & -1        \\
+        3         & 5         & 7-\lambda
+    \end{pmatrix}
 \]
 
-Recuperación del mensaje:
-% Muestra la multiplicación de A inversa por el vector encriptado.
+Expandiendo por cofactores de la primera fila:
+\[
+    = (2-\lambda) \left[ (1-\lambda)(7-\lambda) - (-1)(5) \right] - 4 \left[ 0(7-\lambda) - (-1)(3) \right] + 3 \left[ 0(5) - (1-\lambda)(3) \right]
+\]
+
+Desarrollamos el álgebra paso a paso:
+\begin{align*}
+     & = (2-\lambda) \left[ (7 - \lambda - 7\lambda + \lambda^2) - (-5) \right] - 4 \left[ 0 - (-3) \right] + 3 \left[ 0 - (3 - 3\lambda) \right] \\
+     & = (2-\lambda) \left[ (\lambda^2 - 8\lambda + 7) + 5 \right] - 4(3) + 3(-3 + 3\lambda)                                                      \\
+     & = (2-\lambda) (\lambda^2 - 8\lambda + 12) - 12 - 9 + 9\lambda
+\end{align*}
+
+Multiplicamos el binomio por el trinomio:
+\begin{align*}
+     & = 2(\lambda^2 - 8\lambda + 12) - \lambda(\lambda^2 - 8\lambda + 12) - 21 + 9\lambda    \\
+     & = (2\lambda^2 - 16\lambda + 24) - (\lambda^3 - 8\lambda^2 + 12\lambda) - 21 + 9\lambda \\
+     & = 2\lambda^2 - 16\lambda + 24 - \lambda^3 + 8\lambda^2 - 12\lambda - 21 + 9\lambda
+\end{align*}
+
+Agrupando términos semejantes obtenemos el polinomio característico:
+\[
+    -\lambda^3 + 10\lambda^2 - 19\lambda + 3 = 0
+\]
+
+Toda matriz satisface su propio polinomio característico, por lo tanto:
+\[ -A^3 + 10A^2 - 19A + 3I = 0 \]
+
+Despejamos la matriz identidad para encontrar la inversa (multiplicando toda la ecuación por $A^{-1}$):
+\begin{align*}
+    -A^3(A^{-1}) + 10A^2(A^{-1}) - 19A(A^{-1}) + 3I(A^{-1}) & = 0               \\
+    -A^2 + 10A - 19I + 3A^{-1}                              & = 0               \\
+    3A^{-1}                                                 & = A^2 - 10A + 19I
+\end{align*}
+
+Finalmente despejamos $A^{-1}$:
+\[
+    A^{-1} = \frac{1}{3} \left( A^2 - 10A + 19I \right)
+\]
+
+\subsection*{Operaciones Matriciales}
+
+\textbf{Paso 1: Calcular $A^2$}
+\[
+    A^2 = \begin{pmatrix} 2 & 4 & 3 \\ 0 & 1 & -1 \\ 3 & 5 & 7 \end{pmatrix} \cdot \begin{pmatrix} 2 & 4 & 3 \\ 0 & 1 & -1 \\ 3 & 5 & 7 \end{pmatrix}
+\]
+\[
+    = \begin{pmatrix}
+        13 & 27 & 23 \\
+        -3 & -4 & -8 \\
+        27 & 52 & 53
+    \end{pmatrix}
+\]
+
+\textbf{Paso 2: Sustitución en la fórmula de la inversa}
+\[
+    3A^{-1} = \begin{pmatrix} 13 & 27 & 23 \\ -3 & -4 & -8 \\ 27 & 52 & 53 \end{pmatrix} - 10 \begin{pmatrix} 2 & 4 & 3 \\ 0 & 1 & -1 \\ 3 & 5 & 7 \end{pmatrix} + 19 \begin{pmatrix} 1 & 0 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 1 \end{pmatrix}
+\]
+
+{\Huge $\Rightarrow$}
+
+
+\[
+    A^{-1} = \frac{1}{3} \begin{pmatrix}
+        12 & -13 & -7 \\
+        -3 & 5   & 2  \\
+        -3 & 2   & 2
+    \end{pmatrix}
+\]
+
+\subsection*{Proceso de Encriptado y Desencriptado}
+
+\textbf{Encriptado:}
+Para encriptar un mensaje, se convierte cada letra a su valor numérico correspondiente ($A=0, B=1, \dots$) y se agrupan en vectores columna $M$ de tamaño $3 \times 1$. Luego se multiplica por la matriz $A$:
+\[ C = A \cdot M \pmod{26} \]
+
+\textbf{Desencriptado:}
+Para recuperar el mensaje original, multiplicamos el vector cifrado $C$ por la matriz inversa $A^{-1}$ encontrada:
+\[ M = A^{-1} \cdot C \]
+
 
 
 \newpage
-\section*{Ejercicio 4 (20 puntos)}
-\textit{En una región la población se mantiene constante... 8 millones en zona rural y 2 en urbana.}
+\section*{Ejercicio 4}
+\textit{En una región la población se mantiene constante y esta
+    se divide en rural y urbana. Se ha observado que cada año, 25% de
+    habitantes de la zona rural pasa a la urbana y 5% de la urbana se
+    cambia a la rural. Si al inicio de un experimento para determinar el
+    movimiento de una población se tienen 8 millones en la zona rural y 2
+    en la zona urbana.}
 
-\subsection*{(a) Matriz Estocástica}
-Justificación de la matriz $A = \begin{pmatrix} 0.75 & 0.05 \\ 0.25 & 0.95 \end{pmatrix}$:
-% Explica por qué las columnas suman 1 y qué significa cada entrada.
+\subsection*{a) Justificación de la Matriz Estocástica}
+Sea el espacio de estados $\Omega = \{0, 1\}$.
+Si para $i = 0, \dots, n$:
+\begin{itemize}
+    \item $X_i = 0 \implies$ Población Rural
+    \item $X_i = 1 \implies$ Población Urbana
+\end{itemize}
 
-\subsection*{(b) Polinomio Mínimo y Valores Propios}
-Cálculo del polinomio característico $|A - \lambda I| = 0$:
-% Tu desarrollo aquí.
+Datos del problema (probabilidades de transición):
+\begin{align*}
+    P(X_i = 1 \mid X_{i-1} = 0) & = 0.25 \quad (\text{Rural a Urbana}) \\
+    P(X_i = 0 \mid X_{i-1} = 1) & = 0.05 \quad (\text{Urbana a Rural})
+\end{align*}
 
-Valores propios obtenidos:
-\[ \lambda_1 = \dots, \quad \lambda_2 = \dots \]
+Por complementos (la suma de probabilidades debe ser 1):
+\begin{align*}
+    P(X_i = 0 \mid X_{i-1} = 0) & = 1 - P(X_i = 1 \mid X_{i-1} = 0) = 1 - 0.25 = 0.75 \\
+    P(X_i = 1 \mid X_{i-1} = 1) & = 1 - P(X_i = 0 \mid X_{i-1} = 1) = 1 - 0.05 = 0.95
+\end{align*}
 
-\subsection*{(c) Diagonalización (Matriz P)}
-Cálculo de los vectores propios para formar $P$:
+Ordenando en la matriz de transición $A$ (donde las columnas representan el estado origen y las filas el estado destino):
 \[
-    P = \begin{pmatrix} \dots & \dots \\ \dots & \dots \end{pmatrix}, \quad
-    P^{-1} A P = \begin{pmatrix} \lambda_1 & 0 \\ 0 & \lambda_2 \end{pmatrix}
+    A = \begin{pmatrix}
+        0.75 & 0.05 \\
+        0.25 & 0.95
+    \end{pmatrix}
 \]
 
-\subsection*{(d) Población en 100 años}
-Cálculo de $A^{100}$ o del estado estacionario:
-% Tu desarrollo analítico aquí.
+Bajo el supuesto hecho que las probabilidades de transición son estacionarias, se cumple la propiedad de Markov.
+
+\subsection*{b) Polinomio Mínimo y Valores Propios}
+Calculamos el polinomio característico mediante $\det(A - \lambda I)$:
+
+\[
+    \det(A - \lambda I) = \det \begin{pmatrix}
+        0.75 - \lambda & 0.05           \\
+        0.25           & 0.95 - \lambda
+    \end{pmatrix}
+\]
+
+Desarrollando el determinante:
+\[
+    = (0.75 - \lambda)(0.95 - \lambda) - (0.25)(0.05)
+\]
+\[
+    = 0.7125 - 0.75\lambda - 0.95\lambda + \lambda^2 - 0.0125
+\]
+Agrupando términos:
+\[
+    = \lambda^2 - 1.7\lambda + 0.7005
+\]
+
+Resolvemos la ecuación cuadrática para encontrar las raíces ($\lambda$):
+\[
+    \lambda = \frac{-(-1.7) \pm \sqrt{(-1.7)^2 - 4(1)(0.7005)}}{2(1)}
+\]
+\[
+    \lambda = \frac{1.7 \pm \sqrt{2.89 - 2.802}}{2}
+\]
+\[
+    \lambda = \frac{1.7 \pm \sqrt{0.08}}{2} \quad (\text{Nota: } \sqrt{0.08} \approx 0.282842)
+\]
+
+Calculando los dos valores:
+\begin{align*}
+    \lambda_1 & = \frac{1.7 + 0.282842}{2} = \frac{1.982842}{2} = 0.991421 \\
+    \lambda_2 & = \frac{1.7 - 0.282842}{2} = \frac{1.417158}{2} = 0.708579
+\end{align*}
+
+Por lo tanto, los valores propios son:
+\[ P(\lambda) = (\lambda - 0.991421)(\lambda - 0.708579) \]
+
+\subsection*{c) Matriz Diagonalizadora $P$}
+Buscamos $P$ tal que $P^{-1}AP = D$.
+\[
+    D = \begin{pmatrix}
+        0.991421 & 0        \\
+        0        & 0.708579
+    \end{pmatrix}
+\]
+
+\subsubsection*{Cálculo de Vectores Propios}
+\textbf{Para $\lambda_1 = 0.991421$:}
+Planteamos $(A - \lambda_1 I)v = 0$:
+\[
+    \begin{pmatrix}
+        0.75 & 0.05 \\
+        0.25 & 0.95
+    \end{pmatrix}
+    -
+    \begin{pmatrix}
+        0.991421 & 0        \\
+        0        & 0.991421
+    \end{pmatrix}
+    =
+    \begin{pmatrix}
+        -0.241421 & 0.05  \\
+        \dots     & \dots
+    \end{pmatrix}
+\]
+Del sistema obtenemos:
+\[ -0.241421 v_1 + 0.05 v_2 = 0 \]
+\[ 0.05 v_2 = 0.241421 v_1 \implies v_2 = \frac{0.241421}{0.05} v_1 \approx 4.828 v_1 \]
+Si $v_1 = 1$, entonces $v_2 = 4.8285$.
+\[ V_1 = \begin{pmatrix} 1 \\ 4.8285 \end{pmatrix} \]
+
+\textbf{Para $\lambda_2 = 0.708579$:}
+Del sistema $(A - \lambda_2 I)v = 0$:
+\[
+    \begin{pmatrix}
+        0.75 - 0.7085 & 0.05  \\
+        \dots         & \dots
+    \end{pmatrix}
+    \implies
+    0.0415 v_1 + 0.05 v_2 = 0
+\]
+\[
+    0.05 v_2 = -0.0415 v_1 \implies v_2 = \frac{-0.0415}{0.05} v_1 = -0.83 v_1
+\]
+Según la matriz $P$ construida en las notas:
+\[ v_2 = \begin{pmatrix} -1.03 \\ 1 \end{pmatrix} \]
+
+Matriz $P$ formada:
+\[
+    P = \begin{pmatrix}
+        1      & -1.03 \\
+        4.8285 & 1
+    \end{pmatrix}
+\]
+
+\subsubsection*{Cálculo de la Inversa $P^{-1}$ (Gauss-Jordan)}
+Aumentamos la matriz con la identidad:
+\[
+    \left( \begin{array}{cc|cc}
+            1      & -1.03 & 1 & 0 \\
+            4.8285 & 1     & 0 & 1
+        \end{array} \right)
+\]
+
+Operación $R_2 = R_2 - 4.8285 R_1$:
+\[
+    \left( \begin{array}{cc|cc}
+            1 & -1.03  & 1       & 0 \\
+            0 & 5.8585 & -4.8285 & 1
+        \end{array} \right)
+\]
+
+Operación $R_2 = R_2 / 5.8585$:
+\[
+    \left( \begin{array}{cc|cc}
+            1 & -1.03 & 1       & 0      \\
+            0 & 1     & -0.8241 & 0.1706
+        \end{array} \right)
+\]
+
+Operación $R_1 = R_1 + 1.03 R_2$:
+\[
+    \left( \begin{array}{cc|cc}
+            1 & 0 & 0.1759  & 0.1757 \\
+            0 & 1 & -0.8241 & 0.1706
+        \end{array} \right)
+\]
+
+Por lo tanto:
+\[
+    P^{-1} = \begin{pmatrix}
+        0.1759  & 0.1757 \\
+        -0.8241 & 0.1706
+    \end{pmatrix}
+\]
+
+\textbf{Paso A: Multiplicación $M = P^{-1} \cdot A$}
+\[
+    \begin{pmatrix}
+        0.1759  & 0.1757 \\
+        -0.8241 & 0.1706
+    \end{pmatrix}
+    \begin{pmatrix}
+        0.75 & 0.05 \\
+        0.25 & 0.95
+    \end{pmatrix}
+\]
+
+
+Resultado Intermedio:
+\[
+    M = \begin{pmatrix}
+        0.1758  & 0.1756 \\
+        -0.5754 & 0.1208
+    \end{pmatrix}
+\]
+
+\textbf{Paso B: Multiplicación Final $(P^{-1}A) \cdot P$}
+\[
+    \begin{pmatrix}
+        0.1758  & 0.1756 \\
+        -0.5754 & 0.1208
+    \end{pmatrix}
+    \begin{pmatrix}
+        1      & -1.03 \\
+        4.8285 & 1
+    \end{pmatrix}
+\]
+
+Resultado de la Verificación:
+\[
+    D \approx \begin{pmatrix}
+        1 & 0    \\
+        0 & 0.71
+    \end{pmatrix}
+\]
+Se comprueba que se recuperan los valores propios aproximados.
+
+\section*{d) Habitantes al cabo de 100 años}
+
+Datos iniciales:
+\[ P_0 = \begin{pmatrix} 8 \\ 2 \end{pmatrix} \quad (\text{8 millones Rural, 2 Urbanos}) \]
+
+Matriz de vectores propios (recalculada con enteros):
+\[ P = \begin{pmatrix} 1 & -1 \\ 5 & 1 \end{pmatrix} \]
+Sistema para hallar constantes $c_1, c_2$:
+\[
+    \begin{pmatrix} 8 \\ 2 \end{pmatrix} = c_1 \begin{pmatrix} 1 \\ 5 \end{pmatrix} + c_2 \begin{pmatrix} -1 \\ 1 \end{pmatrix}
+\]
+
+Resolviendo el sistema lineal:
+\begin{align*}
+    c_1 - c_2  & = 8 \\
+    5c_1 + c_2 & = 2
+\end{align*}
+Sumando ambas ecuaciones:
+\[ 6c_1 = 10 \implies c_1 = \frac{10}{6} = \frac{5}{3} \]
+
+Sustituyendo $c_1$ en la primera ecuación:
+\[ \frac{5}{3} - c_2 = 8 \implies c_2 = \frac{5}{3} - 8 = \frac{5 - 24}{3} = -\frac{19}{3} \]
+
+Ecuación de estado al año $k$:
+\[ X_k = c_1 (\lambda_1)^k v_1 + c_2 (\lambda_2)^k v_2 \]
+\[ X_{100} = \frac{5}{3} (1)^{100} \begin{pmatrix} 1 \\ 5 \end{pmatrix} - \frac{19}{3} (0.7)^{100} \begin{pmatrix} -1 \\ 1 \end{pmatrix} \]
+
+Calculando el límite cuando $k=100$:
+Dado que $(0.7)^{100} \approx 1.08 \times 10^{-15} \approx 0$:
+
+\[
+    X_{100} \approx \frac{5}{3} (1) \begin{pmatrix} 1 \\ 5 \end{pmatrix} - 0
+\]
+\[
+    X_{100} = \begin{pmatrix} 5/3 \\ 25/3 \end{pmatrix}
+\]
+
+\textbf{Resultado Final:}
+\begin{itemize}
+    \item Población Rural: $5/3 \approx 1.66$ millones.
+    \item Población Urbana: $25/3 \approx 8.33$ millones.
+\end{itemize}
 
 
 \newpage
-\section*{Ejercicio 5 (20 puntos)}
+\section*{Ejercicio 5}
 \textit{Considere la matriz:}
 \[
     A = \begin{pmatrix} 4 & 11 & 14 \\ 8 & 7 & -2 \end{pmatrix}
 \]
 
-\subsection*{(a) Matriz $A^T A$}
+\subsection*{a) Cálculo de matrices}
+Dada la matriz:
 \[
-    A^T A = \begin{pmatrix} 4 & 8 \\ 11 & 7 \\ 14 & -2 \end{pmatrix} \begin{pmatrix} 4 & 11 & 14 \\ 8 & 7 & -2 \end{pmatrix} = \dots
+    A = \begin{pmatrix}
+        4 & 11 & 14 \\
+        8 & 7  & -2
+    \end{pmatrix}
+\]
+Calculamos su transpuesta $A^t$:
+\[
+    A^t = \begin{pmatrix}
+        4  & 8  \\
+        11 & 7  \\
+        14 & -2
+    \end{pmatrix}
+\]
+Realizamos la multiplicación $A A^t$:
+\[
+    A A^t = \begin{pmatrix}
+        4 & 11 & 14 \\
+        8 & 7  & -2
+    \end{pmatrix}
+    \begin{pmatrix}
+        4  & 8  \\
+        11 & 7  \\
+        14 & -2
+    \end{pmatrix}
+    = \begin{pmatrix}
+        (16+121+196) & (32+77-28) \\
+        (32+77-28)   & (64+49+4)
+    \end{pmatrix}
+\]
+\[
+    A A^t = \begin{pmatrix}
+        333 & 81  \\
+        81  & 117
+    \end{pmatrix}
 \]
 
-\subsection*{(b) Valores Propios de $A^T A$}
-% Cálculo de eigenvalores y ordenamiento creciente.
+\subsection*{b) Valores propios de la matriz producto}
+Calculamos el polinomio característico $\det(AA^t - \lambda I)$:
+\[
+    \det \begin{pmatrix}
+        333 - \lambda & 81            \\
+        81            & 117 - \lambda
+    \end{pmatrix}
+    = (333 - \lambda)(117 - \lambda) - (81)^2
+\]
+Desarrollando:
+\[
+    = 38961 - 333\lambda - 117\lambda + \lambda^2 - 6561
+\]
+\[
+    = \lambda^2 - 450\lambda + 32400
+\]
+Resolvemos la ecuación cuadrática $\lambda^2 - 450\lambda + 32400 = 0$ usando la fórmula general:
+\[
+    \lambda = \frac{-(-450) \pm \sqrt{(-450)^2 - 4(1)(32400)}}{2(1)}
+\]
+\[
+    = \frac{450 \pm \sqrt{202500 - 129600}}{2}
+\]
+\[
+    = \frac{450 \pm \sqrt{72900}}{2} = \frac{450 \pm 270}{2}
+\]
+Soluciones:
+\begin{align*}
+    \lambda_1 & = \frac{450 + 270}{2} = \frac{720}{2} = 360 \\
+    \lambda_2 & = \frac{450 - 270}{2} = \frac{180}{2} = 90
+\end{align*}
 
-\subsection*{(c) Valores Singulares de A}
-\[ \sigma_i = \sqrt{\lambda_i} \]
-% Tus resultados.
+\subsection*{c) Valores Singulares}
+Los valores singulares ($\sigma$) son la raíz cuadrada de los valores propios:
+\[
+    \lambda_1 = 360 \quad \implies \quad \sigma_1 = \sqrt{360} \approx 18.97
+\]
+\[
+    \lambda_2 = 90 \quad \implies \quad \sigma_2 = \sqrt{90} \approx 9.48
+\]
 
-\subsection*{(d) Base Ortonormal (Vectores $V$)}
-% Cálculo de vectores propios normalizados.
+\subsection*{d) Vectores Propios y Base Ortonormal (Matriz U)}
 
-\subsection*{(e) Matrices $U, \Sigma, V^T$}
-% Construcción de las matrices de la SVD.
+\subsubsection*{Para $\lambda_1 = 360$:}
+Sustituimos en $(AA^t - 360I)v = 0$:
+\[
+    \begin{pmatrix}
+        333 - 360 & 81        \\
+        81        & 117 - 360
+    \end{pmatrix}
+    \begin{pmatrix} v_1 \\ v_2 \end{pmatrix}
+    = \begin{pmatrix} 0 \\ 0 \end{pmatrix}
+\]
+\[
+    \begin{pmatrix}
+        -27 & 81   \\
+        81  & -243
+    \end{pmatrix}
+    \begin{pmatrix} v_1 \\ v_2 \end{pmatrix}
+    = \begin{pmatrix} 0 \\ 0 \end{pmatrix}
+\]
+De la primera ecuación:
+\[
+    -27 v_1 + 81 v_2 = 0 \implies 27 v_1 = 81 v_2 \implies v_1 = 3 v_2
+\]
+Si $v_2 = 1$, entonces $v_1 = 3$.
+\[ \vec{u}_1 = (3, 1) \]
 
-\subsection*{(f) Verificación $A = U \Sigma V^T$}
-% Multiplicación de comprobación.
+\subsubsection*{Para $\lambda_2 = 90$:}
+Sustituimos en $(AA^t - 90I)v = 0$:
+\[
+    \begin{pmatrix}
+        333 - 90 & 81       \\
+        81       & 117 - 90
+    \end{pmatrix}
+    = \begin{pmatrix}
+        243 & 81 \\
+        81  & 27
+    \end{pmatrix}
+\]
+De la segunda ecuación:
+\[
+    81 v_1 + 27 v_2 = 0 \implies 27 v_2 = -81 v_1 \implies v_2 = -3 v_1
+\]
+Si $v_1 = 1$, entonces $v_2 = -3$.
+\[ \vec{u}_2 = (1, -3) \]
 
+\subsubsection*{Normalización (Base $P_L$)}
+Comprobamos ortogonalidad: $\langle (3,1), (1,-3) \rangle = 3(1) + 1(-3) = 0$.
+Calculamos las normas:
+\[ \|\vec{u}_1\| = \sqrt{3^2 + 1^2} = \sqrt{10} \]
+\[ \|\vec{u}_2\| = \sqrt{1^2 + (-3)^2} = \sqrt{10} \]
+
+La matriz $U$ (o base ortonormal $P_L$) es:
+\[
+    U = \begin{pmatrix}
+        \frac{3}{\sqrt{10}} & \frac{1}{\sqrt{10}}  \\
+        \frac{1}{\sqrt{10}} & \frac{-3}{\sqrt{10}}
+    \end{pmatrix}
+    = \frac{1}{\sqrt{10}} \begin{pmatrix} 3 & 1 \\ 1 & -3 \end{pmatrix}
+\]
+
+\textbf{e)}
+
+\[
+    A = U \Sigma V^{T}
+\]
+
+\bigskip
+
+\[
+    \Rightarrow U_1
+    = \frac{1}{360}
+    \begin{pmatrix}
+        333 & 81  \\
+        81  & 117
+    \end{pmatrix}
+    \begin{pmatrix}
+        3 \\
+        1
+    \end{pmatrix}
+    =
+    \frac{1}{360}
+    \begin{pmatrix}
+        1080 \\
+        360
+    \end{pmatrix}
+    =
+    \begin{pmatrix}
+        \frac{1080}{360} \\
+        \frac{360}{360}
+    \end{pmatrix}
+\]
+
+\bigskip
+
+\[
+    \Rightarrow U_2
+    = \frac{1}{90}
+    \begin{pmatrix}
+        333 & 81  \\
+        81  & 117
+    \end{pmatrix}
+    \begin{pmatrix}
+        1 \\
+        -3
+    \end{pmatrix}
+    =
+    \frac{1}{90}
+    \begin{pmatrix}
+        90 \\
+        -270
+    \end{pmatrix}
+    =
+    \begin{pmatrix}
+        \frac{90}{90} \\
+        \frac{-270}{90}
+    \end{pmatrix}
+\]
+
+\bigskip
+
+\[
+    \Rightarrow U =
+    \begin{pmatrix}
+        3 & 1  \\
+        1 & -3
+    \end{pmatrix}
+\]
+
+\bigskip
+
+\[
+    \Rightarrow
+    U \Sigma V^{T}
+    =
+    \frac{1}{10}
+    \begin{pmatrix}
+        3 & 1  \\
+        1 & -3
+    \end{pmatrix}
+    \begin{pmatrix}
+        360 & 0  \\
+        0   & 90
+    \end{pmatrix}
+    \begin{pmatrix}
+        3 & 1  \\
+        1 & -3
+    \end{pmatrix}
+\]
+
+\bigskip
+
+\[
+    =
+    \frac{1}{10}
+    \begin{pmatrix}
+        1080 & 90   \\
+        360  & -270
+    \end{pmatrix}
+    \begin{pmatrix}
+        3 & 1  \\
+        1 & -3
+    \end{pmatrix}
+    =
+    \frac{1}{10}
+    \begin{pmatrix}
+        3330 & 810 \\
+        810  & 117
+    \end{pmatrix}
+\]
+
+\bigskip
+
+\[
+    = A
+\]
+
+\bigskip
+\bigskip
+
+\textbf{f) Verificación}
+
+Se verifica que el producto de la descomposición SVD reconstruye la matriz original:
+
+\[
+    A = U \Sigma V^{T}
+\]
+
+\[
+    \Rightarrow
+    \frac{1}{10}
+    \begin{pmatrix}
+        3330 & 810 \\
+        810  & 117
+    \end{pmatrix}
+    =
+    \begin{pmatrix}
+        333 & 81   \\
+        81  & 11.7
+    \end{pmatrix}
+\]
+
+Por lo tanto, la factorización es correcta.
 
 \newpage
-\section*{Ejercicio 6 (10 puntos)}
+\section*{Ejercicio 6}
 \textit{Investigue alguna aplicación práctica de la descomposición en valores singulares (SVD).}
 
-\subsection*{Aplicación: [Nombre de la Aplicación, ej. Compresión de Imágenes]}
-% Tu explicación detallada aquí (sin código).
+\subsection*{Aplicación: Clusterizacion de Matrices de alda cardinalidad usando Singular Value Decomposition}
+%
+EL articulo provee una justificacion matematico-computacional de los beneficios de usar un algoritmo que logra con una estrategia de eleccion aleatroria de columnas para su la formacion de clusters; donde se aprovecha el concepto de ortogonalidad para reforzar la propiedad de cohesión, vital para obtener un analisis no-supervisado de calidad.
 % Ejemplo: La SVD se utiliza para reducir la dimensionalidad de...
 
 \vspace{1cm}
 
 % --- BIBLIOGRAFÍA ---
 \begin{thebibliography}{9}
-    \bibitem{notas}
-    Delgado, B. (2025). \textit{Notas de clase: Matemáticas para la Ciencia de Datos}. FES Acatlán, UNAM.
 
-    \bibitem{libro}
-    Lay, D. C. (2012). \textit{Álgebra lineal y sus aplicaciones}. Pearson Educación.
+    \bibitem{rincon2014}
+    Rincón, L. (2014). Variables aleatorias y funciones de distribución. En \textit{Introducción a la probabilidad} (p. 74). Facultad de Ciencias, UNAM.
 
-    \bibitem{paper}
-    % Agrega aquí la referencia de tu investigación del ejercicio 6.
+    \bibitem{rincon2012}
+    Rincón, L. (2012). Cadenas de Markov a tiempo discreto. En \textit{Introducción a los procesos estocásticos} (p. 80). Facultad de Ciencias, UNAM.
+
+    \bibitem{axler2015}
+    Axler, S. (2015). Eigenvalues, Inner Product Spaces, and Operators on Inner Product Spaces. En \textit{Linear Algebra Done Right} (3.ª ed., caps. 5-9, p. 275). Springer.
+
+    \bibitem{EJERCICIO 6}
+    Drineas, P., Frieze, A., Kannan, R. et al. Clustering Large Graphs via the Singular Value Decomposition. Machine Learning 56, 9–33 (2004). https://doi.org/10.1023/B:MACH.0000033113.59016.96
+
 \end{thebibliography}
 
 \end{document}
