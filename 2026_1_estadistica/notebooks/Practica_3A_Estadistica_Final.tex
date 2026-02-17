@@ -1,0 +1,238 @@
+
+\documentclass[12pt]{article}
+\usepackage[spanish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\graphicspath{{../}}
+\usepackage{geometry}
+\usepackage{verbatim}
+\usepackage{float}
+\geometry{margin=1in}
+
+\title{\textbf{Práctica 3A: Probabilidad y Estadística Descriptiva}}
+\author{Alumno: Javier Jhairt Lopez Rojas\\ Materia: Probabilidad y Estadística}
+\date{}
+
+\begin{document}
+
+\maketitle
+\thispagestyle{empty}
+\newpage
+
+%------------------------------------------------
+\section*{Problema 1}
+
+\textbf{Postulado:} Lanzar tres veces una moneda honesta y calcular probabilidades.
+
+\subsection*{Solución}
+
+\textbf{(a) Espacio muestral}
+
+\[
+    \Omega = \{AAA, AAS, ASA, ASS, SAA, SAS, SSA, SSS\}
+\]
+
+\textbf{(b) Función de probabilidad}
+
+Sea $X$ el número de águilas. Entonces:
+
+\[
+    X \sim Binomial(n=3, p=0.5)
+\]
+
+\[
+    P(X=k) = \binom{3}{k}(0.5)^k(0.5)^{3-k}
+\]
+
+\[
+    P(0)=\frac{1}{8}, \quad
+    P(1)=\frac{3}{8}, \quad
+    P(2)=\frac{3}{8}, \quad
+    P(3)=\frac{1}{8}
+\]
+
+\textbf{(c) Esperanza}
+
+\[
+    E(X)=np=3(0.5)=1.5
+\]
+
+\textbf{(d) Varianza}
+
+\[
+    Var(X)=np(1-p)=3(0.5)(0.5)=0.75
+\]
+
+\textbf{Interpretación:} En promedio se esperan 1.5 águilas en tres lanzamientos.
+
+
+%------------------------------------------------
+\newpage
+\section*{Problema 2}
+
+\textbf{Postulado:} Examen de 10 preguntas con probabilidad $p=0.25$.
+
+\subsection*{Solución}
+
+\[
+    X \sim Binomial(n=10, p=0.25)
+\]
+
+\textbf{(a) Exactamente 3 correctas}
+
+\[
+    P(X=3)=\binom{10}{3}(0.25)^3(0.75)^7
+\]
+
+\textbf{(b) Al menos 2 correctas}
+
+\[
+    P(X\ge 2)=1-P(X\le 1)
+\]
+
+\textbf{(c) Ninguna correcta}
+
+\[
+    P(X=0)=(0.75)^{10}
+\]
+
+\textbf{Interpretación:} Se modela con distribución binomial debido a ensayos independientes.
+
+\subsection*{Anexo: Código en R}
+
+\begin{verbatim}
+n <- 10
+p <- 0.25
+dbinom(3, n, p)
+1 - pbinom(1, n, p)
+dbinom(0, n, p)
+\end{verbatim}
+
+%------------------------------------------------
+\newpage
+\section*{Problema 3}
+
+\textbf{Postulado:} Indemnizaciones en miles de pesos.
+
+\subsection*{Solución}
+
+Se calcularon media, mediana, varianza, desviación estándar,
+percentiles 0.16 y 0.84, así como deciles 1, 5 y 9.
+
+\textbf{Interpretación:}
+\begin{itemize}
+    \item La línea roja representa la \textbf{media}, y la línea azul la \textbf{mediana}.
+    \item La media se encuentra ligeramente a la derecha de la mediana.
+    \item Esto indica una \textbf{asimetría positiva}, causada por algunos valores altos en el conjunto de datos.
+    \item La mayoría de las indemnizaciones se concentran en valores medios y bajos.
+    \item Existen algunos montos elevados que influyen en el promedio.
+    \item Debido a la influencia de valores altos, la \textbf{media no es completamente representativa}, y la mediana describe mejor el centro del conjunto.
+    \item En general, los datos muestran dispersión moderada con presencia de valores extremos superiores.
+\end{itemize}
+
+
+\subsection*{Anexo: Código en R}
+
+\begin{verbatim}
+datos <- c(500,500,495,490,473,441,429,419,405,400,
+390,390,390,376,353,350,300,258,240,220,210,200,
+192,190,150,130,125,110,100,100)
+
+mean(datos)
+median(datos)
+var(datos)
+sd(datos)
+quantile(datos, c(0.16,0.84))
+quantile(datos, c(0.1,0.5,0.9))
+
+hist(datos)
+abline(v=mean(datos), col="red")
+abline(v=median(datos), col="blue")
+\end{verbatim}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{images/hist.png}
+    \label{fig:onfact_onn}
+\end{figure}
+
+%------------------------------------------------
+\newpage
+\section*{Problema 4}
+
+\textbf{Postulado:} Tabla de contingencia Sexo vs Estado Civil.
+
+\subsection*{Solución}
+
+Se construyó tabla de contingencia, marginal y condicional.
+
+\textbf{Interpretación:}
+En la tabla de contingencia se observa que tanto hombres como mujeres están distribuidos de manera equilibrada entre casados y solteros, ya que en ambos casos el $50\%$ pertenece a cada categoría. Esto indica que dentro de cada sexo no hay una diferencia en la proporción de estado civil. Además, aunque hay ligeramente más hombres que mujeres en la empresa (20 hombres y 16 mujeres), esa diferencia se refleja de manera proporcional en ambas categorías de estado civil. En general, no se aprecia una relación fuerte entre sexo y estado civil, por lo que las variables parecen comportarse de forma independiente en esta muestra.
+
+\subsection*{Anexo: Código en R}
+
+\begin{verbatim}
+tabla <- table(sexo, estado)
+margin.table(tabla,1)
+margin.table(tabla,2)
+prop.table(tabla,1)
+prop.table(tabla,2)
+\end{verbatim}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{images/tabla_4_1.png}
+    \label{fig:onfact_onn}
+\end{figure}
+
+%------------------------------------------------
+\newpage
+\section*{Problema 5}
+
+\textbf{Postulado:} Datos USArrests.
+
+\subsection*{Solución}
+
+Se calcularon:
+
+\begin{itemize}
+    \item Matriz varianza-covarianza
+    \item Matriz de correlación
+    \item Scatter Plot Matrix
+    \item Parallel Coordinates Plot
+\end{itemize}
+
+\textbf{Interpretación:}
+En la matriz de dispersión se observa que Murder y Assault tienen una relación positiva fuerte, ya que cuando una variable aumenta, la otra también tiende a aumentar. Rape muestra una relación moderada con estas variables, mientras que UrbanPop no presenta una relación tan clara. En el gráfico de coordenadas paralelas se pueden notar líneas que siguen patrones similares, lo que indica que existen estados con niveles parecidos de criminalidad. En general, ambas gráficas permiten identificar visualmente grupos de estados con niveles altos, medios y bajos en las variables analizadas.
+
+\subsection*{Anexo: Código en R}
+
+\begin{verbatim}
+data(USArrests)
+var(USArrests)
+cor(USArrests)
+pairs(USArrests)
+matplot(scale(USArrests), type="l")
+\end{verbatim}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{../images/tabla_5.png}
+    \label{fig:onfact_onn}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{../images/scatter.png}
+    \label{fig:onfact_onn}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{../images/lines.png}
+    \label{fig:onfact_onn}
+\end{figure}
+
+\end{document}
